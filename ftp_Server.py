@@ -56,15 +56,8 @@ def absolute_path(thread,path):
     if '../' in path:
 
         path = path.replace('../','')
-    #     new_path = thread.current_dir.split('\\')
-    #     num = len(new_path)
-    #     del new_path[num-1]
-    #     new_path = os.path.join(*new_path,path)
-    #     return new_path 
-        os.chdir(os.path.dirname(thread.current_dir))
-        thread.current_dir = os.getcwd()
-        path = os.path.join(allowed_dir,path)
-        print (os.path.isdir(path))
+        path2 = os.path.abspath(os.path.join(thread.current_dir, os.pardir))
+        path = os.path.join(path2,path)
         return path
 
     elif './' in path :
