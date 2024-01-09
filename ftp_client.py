@@ -33,13 +33,13 @@ def user_downloads_folder(username,file_name):
 
     try:    #if user specefied folder exist:
          
-         new_file = os.path.join(download_path,username)
+         new_file = os.path.join(allowed_dir,username)
          new_file = os.path.join(new_file,file_name)
          file = open(new_file,'w')
          file.close()
 
     except :
-         new_file = os.path.join(download_path,username)
+         new_file = os.path.join(allowed_dir,username)
          os.makedirs(new_file)
          new_file = os.path.join(new_file,file_name)
          file = open(new_file,'w')
@@ -76,6 +76,7 @@ def handle_retr(server_msg):
        elif 'retr:NB':
             while not server_msg =='retr:EOF':
                 server_msg = client.recv(1024).decode(format)
+                server_msg = server_msg.replace('\n','')
                 client.sendall(b'A')
                 if server_msg =='retr:EOF':
                      break
